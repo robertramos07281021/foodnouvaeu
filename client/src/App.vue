@@ -1,12 +1,12 @@
 <script setup>
-  import { RouterView } from 'vue-router'
-  import NavBar from '@/components/NavBar.vue'
-  import 'primeicons/primeicons.css';
+import { RouterView } from "vue-router";
+import NavBar from "@/components/NavBar.vue";
+import "primeicons/primeicons.css";
+import Footer from "./components/Footer.vue";
 </script>
 
 <template>
-<NavBar />
-<RouterView />
+  <NavBar />
+  <RouterView />
+  <Footer />
 </template>
-
-

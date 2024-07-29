@@ -1,4 +1,5 @@
 const Recipes = require("../models/recipes");
+const Email = require("../models/email");
 
 exports.addRecipe = async (req, res) => {
   const { name, country, category, ingredients, instructions, image, poster } =
@@ -94,5 +95,21 @@ exports.findRecipe = async (req, res) => {
     return res.status(400).json({ message: "Recipe not exists." });
   } else {
     return res.status(200).json({ findRecipe });
+  }
+};
+
+exports.addEmail = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "Please add email." });
+  }
+
+  try {
+    const addEmail = await Email.create({
+      email,
+    });
+    return res.status(200).json({ success: "Successfully add email" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };
