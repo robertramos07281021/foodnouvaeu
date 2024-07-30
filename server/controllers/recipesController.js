@@ -103,6 +103,11 @@ exports.addEmail = async (req, res) => {
   if (!email) {
     return res.status(400).json({ message: "Please add email." });
   }
+  const exist = await Email.find({ email: { $eq: email } });
+
+  if (exist.length > 0) {
+    return res.status(400).json({ message: "Email is already exists." });
+  }
 
   try {
     const addEmail = await Email.create({

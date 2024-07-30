@@ -105,7 +105,7 @@
         About Us
       </h1>
       <p
-        class="sectorTitle text-justify indent-8 font-medium text-white min-[320px]:px-10 min-[320px]:text-sm lg:px-4 lg:text-sm 2xl:text-base"
+        class="sectorTitle text-justify indent-8 font-medium text-white min-[320px]:px-3 min-[320px]:text-sm lg:px-4 lg:text-sm 2xl:text-base"
       >
         We are giving you the most delicious foods around the world. The
         achievement of our company is to spread the beauty of culinary and the
@@ -124,7 +124,6 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
 
 const newEmail = ref("");
 const noEmail = ref(false);
@@ -140,7 +139,7 @@ const handleEmailSubmit = async () => {
       const addEmail = await axios.post("/api/recipes/addemail", email);
       window.location.assign("/?thankyou=true");
     } catch (error) {
-      console.error("Error: ", error);
+      window.location.assign(`/?error=true`);
     }
   }
 };
