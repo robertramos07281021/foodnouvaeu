@@ -9,7 +9,7 @@
         <span>Food</span> <span class="text-white">Nouveau</span>
       </p>
       <ul
-        class="flex divide-x-2 divide-black pt-2 text-sm text-white min-[320px]:justify-center lg:justify-start lg:gap-2 2xl:gap-4"
+        class="flex divide-x-2 divide-black pt-2 text-white min-[320px]:justify-center min-[320px]:gap-4 min-[320px]:text-xs lg:justify-start lg:gap-2 lg:text-sm 2xl:gap-4"
       >
         <a href="/">
           <li>Home</li>
@@ -34,16 +34,19 @@
           :class="[
             'rounded',
             'p-1',
-            'placeholder:text-orange-200',
+            `px-2`,
+            noEmail
+              ? 'placeholder:text-red-300'
+              : 'placeholder:text-orange-300',
             'min-[320px]:w-full',
             'md:w-96',
             'lg:w-56',
             '2xl:w-96',
             'ring-red-500',
-            noEmail && 'ring-inset ring-offset-2 invalid:ring-2',
+            noEmail && 'pla ring-inset ring-offset-2 invalid:ring-2',
             'shadow-md',
           ]"
-          placeholder="Enter email address"
+          :placeholder="noEmail ? `Email is required` : `Enter email address`"
           pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
           v-model="newEmail"
           required
@@ -116,44 +119,16 @@
       </div>
     </div>
   </div>
-  <div
-    v-if="thangYouMessage"
-    class="fixed top-0 z-50 flex h-screen w-full items-center justify-center backdrop-blur-[1px]"
-  >
-    <div
-      class="flex h-52 w-96 flex-col items-center justify-center gap-8 rounded-xl bg-white shadow-md shadow-orange-500 ring-4 ring-inset ring-orange-500 ring-offset-1"
-    >
-      <div class="text-center">
-        <p class="text-4xl font-black text-orange-500">Thank You!</p>
-        <p class="text-lg font-semibold text-orange-500">For Subscription</p>
-      </div>
-      <button
-        @click="handleCloseModal"
-        class="rounded-full border-2 border-orange-500 bg-orange-500 px-10 py-2 font-bold text-white shadow-md transition duration-200 hover:bg-white hover:text-orange-500"
-      >
-        Close
-      </button>
-    </div>
-  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const newEmail = ref("");
 const noEmail = ref(false);
-const thangYouMessage = ref(false);
-
-if (thangYouMessage.value) {
-  document.body.style.overflow = "hidden";
-} else {
-  document.body.style.overflow = "visible";
-}
-
-const handleCloseModal = () => {
-  thangYouMessage.value = false;
-};
 
 const handleEmailSubmit = async () => {
   const email = {
@@ -164,9 +139,7 @@ const handleEmailSubmit = async () => {
   } else {
     try {
       const addEmail = await axios.post("/api/recipes/addemail", email);
-      thangYouMessage.value = !thangYouMessage.value;
-      newEmail.value = "";
-      scrollTo(0, 0);
+      window.location.assign("/?thankyou=true");
     } catch (error) {
       console.error("Error: ", error);
     }

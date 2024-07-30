@@ -8,5 +8,6 @@ router.put("/update/:id", recipesController.updateRecipe);
 router.delete("/delete/:id", recipesController.deleteRecipe);
 router.get("/:id", recipesController.findRecipe);
 router.post("/addemail", recipesController.addEmail);
+router.delete("/emaildelete", recipesController.deleteAllEmails);
 
 module.exports = router;

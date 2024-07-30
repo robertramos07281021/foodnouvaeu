@@ -4,6 +4,19 @@ import SampleRecipe from "@/components/sections/home/SampleRecipe.vue";
 import Category from "@/components/sections/home/Category.vue";
 import Features from "@/components/sections/home/Features.vue";
 import UpButton from "@/components/UpButton.vue";
+import ThankYouMessage from "@/components/ThankYouMessage.vue";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const thankYouQuery = route.query.thankyou;
+
+const thankYouMessage = ref(false);
+onMounted(() => {
+  if (thankYouQuery) {
+    thankYouMessage.value = !thankYouMessage.value;
+  }
+});
 </script>
 
 <template>
@@ -46,4 +59,5 @@ import UpButton from "@/components/UpButton.vue";
 
     <UpButton />
   </main>
+  <ThankYouMessage v-if="thankYouMessage" />
 </template>

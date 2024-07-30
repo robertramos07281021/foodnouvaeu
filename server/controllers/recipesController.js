@@ -113,3 +113,12 @@ exports.addEmail = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+exports.deleteAllEmails = async (req, res) => {
+  try {
+    const deleteAllEmail = await Email.deleteMany({});
+    return res.status(200).json({ success: "Successfully delete all email" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};

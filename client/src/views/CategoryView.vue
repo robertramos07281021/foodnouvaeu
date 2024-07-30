@@ -69,7 +69,7 @@ onMounted(async () => {
       </h1>
     </div>
     <div class="absolute mb-5 pl-8" id="back_button">
-      <BackButton to="/#category" />
+      <BackButton to="/" />
     </div>
     <div class="homeSection rounded-xl bg-white shadow-xl">
       <p class="homeDescription px-10 pb-10 text-justify indent-6">
