@@ -101,12 +101,12 @@ exports.findRecipe = async (req, res) => {
 exports.addEmail = async (req, res) => {
   const { email } = req.body;
   if (!email) {
-    return res.status(400).json({ message: "Please add email." });
+    return res.status(400).json({ message: "no email" });
   }
   const exist = await Email.find({ email: { $eq: email } });
 
   if (exist.length > 0) {
-    return res.status(400).json({ message: "Email is already exists." });
+    return res.status(400).json({ message: "email exists." });
   }
 
   try {

@@ -137,7 +137,7 @@ const handleEmailSubmit = async () => {
   } else {
     try {
       const addEmail = await axios.post("/api/recipes/addemail", email);
-      window.location.assign("/?thankyou=true");
+      window.location.assign("/?thankyou=true&newsletter=false");
     } catch (error) {
       window.location.assign(`/?error=true`);
     }
